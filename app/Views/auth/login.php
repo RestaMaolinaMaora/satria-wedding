@@ -1,32 +1,33 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Login Admin</title>
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
-</head>
-<body class="bg-light">
-  <div class="container vh-100 d-flex justify-content-center align-items-center">
-    <div class="card shadow p-4" style="width: 350px;">
-      <h4 class="text-center mb-3">Login Admin</h4>
+<?= $this->extend('admin/layout/auth') ?>
 
-      <?php if(session()->getFlashdata('error')): ?>
-        <div class="alert alert-danger"><?= session()->getFlashdata('error') ?></div>
-      <?php endif; ?>
+<?= $this->section('content') ?>
+  <div class="login-container">
+    <!-- Kiri -->
+    <div class="login-left"></div>
 
-      <form action="<?= base_url('auth/prosesLogin') ?>" method="post">
-        <div class="mb-3">
-          <label>Username</label>
-          <input type="text" name="username" class="form-control" required>
+    <!-- Kanan -->
+    <div class="login-right">
+      <h2>Log In</h2>
+      <form action="<?= base_url('/auth/prosesLogin') ?>" method="post">
+        
+        <div class="form-group">
+          <label for="username">Username</label>
+          <div class="input-group">
+            <i class="fa-solid fa-user"></i>
+            <input type="text" id="username" name="username" placeholder="Masukkan username" required>
+          </div>
         </div>
-        <div class="mb-3">
-          <label>Password</label>
-          <input type="password" name="password" class="form-control" required>
+
+        <div class="form-group">
+          <label for="password">Password</label>
+          <div class="input-group">
+            <i class="fa-solid fa-lock"></i>
+            <input type="password" id="password" name="password" placeholder="Masukkan password" required>
+          </div>
         </div>
-        <button type="submit" class="btn btn-primary w-100">Login</button>
+
+        <button type="submit">Login</button>
       </form>
     </div>
   </div>
-</body>
-</html>
+<?= $this->endSection() ?>
