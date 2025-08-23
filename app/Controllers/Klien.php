@@ -15,9 +15,18 @@ class Klien extends BaseController
 
     public function index()
     {
+        $keyword = $this->request->getGet('keyword'); // ambil keyword dari query string
+
+        if ($keyword) {
+            $klien = $this->klienModel->search($keyword);
+        } else {
+            $klien = $this->klienModel->findAll();
+        }
+
         $data = [
             'title' => 'Data Klien',
-            'klien' => $this->klienModel->findAll()
+            'klien' => $klien,
+            'keyword' => $keyword // supaya bisa ditampilkan di form pencarian
         ];
         return view('admin/klien/index', $data);
     }
