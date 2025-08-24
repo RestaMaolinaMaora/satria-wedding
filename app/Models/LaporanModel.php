@@ -32,6 +32,25 @@ class LaporanModel extends Model
         return $builder->get()->getResultArray();
     }
 
+    // Ambil semua data laporan untuk Export (Excel & PDF)
+    public function getLaporanExport()
+    {
+        return $this->db->table($this->table)
+            ->select('
+                jadwal_acara.id_jadwal,
+                klien.nama_klien,
+                paket.nama_paket,
+                jadwal_acara.tanggal_acara,
+                jadwal_acara.waktu_mulai,
+                jadwal_acara.waktu_selesai,
+                jadwal_acara.status_acara
+            ')
+            ->join('klien', 'klien.id_klien = jadwal_acara.id_klien')
+            ->join('paket', 'paket.id_paket = jadwal_acara.id_paket')
+            ->get()
+            ->getResultArray();
+    }
+
     // Hitung total acara
     public function getTotalAcara()
     {

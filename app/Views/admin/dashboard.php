@@ -42,14 +42,8 @@
   <div class="col-md-6 mb-4">
     <div class="calendar-box p-3">
       <?= $calendar ?>
-
-      <div class="calendar-legend mt-3">
-        <label class="tersedia"><input type="radio" name="legend"> Tersedia</label>
-        <label class="terbatas"><input type="radio" name="legend"> Terbatas</label>
-        <label class="penuh"><input type="radio" name="legend"> Penuh</label>
-      </div>
-    </div>
-  </div>
+    </div> 
+</div>
 
   <!-- Jadwal Terdekat -->
   <div class="col-md-6 mb-4">

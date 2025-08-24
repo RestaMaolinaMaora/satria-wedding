@@ -1,6 +1,6 @@
 <?php
 
-function generate_calendar($year, $month)
+function generate_calendar($year, $month, $statusTanggal = [])
 {
     $firstDay    = mktime(0, 0, 0, $month, 1, $year);
     $daysInMonth = (int) date("t", $firstDay);
@@ -51,10 +51,31 @@ function generate_calendar($year, $month)
             $html .= "</tr><tr>";
         }
 
-        // Highlight hari ini
-        $isToday = (date('Y') == $year && date('n') == (int)$month && date('j') == $currentDay);
-        $class = $isToday ? 'table-primary fw-bold' : '';
-        $html .= "<td class='$class'>{$currentDay}</td>";
+        // Buat tanggal format YYYY-MM-DD
+        $tanggal = sprintf("%04d-%02d-%02d", $year, $month, $currentDay);
+
+        // Default class
+        $style = "";
+
+        // Highlight hari ini (border biru)
+        if (date('Y-m-d') == $tanggal) {
+            $style .= "border:2px solid #0d6efd; font-weight:bold;";
+        }
+
+        // Cek status booking dari array
+        if (isset($statusTanggal[$tanggal])) {
+            $total = $statusTanggal[$tanggal];
+
+            // Atur warna berdasarkan jumlah booking
+            if ($total >= 5) {
+                $style .= "background-color:#872366; color:#fff;"; // penuh → ungu tua
+            } elseif ($total >= 1) {
+                $style .= "background-color:#E498FF; color:#000;"; // terbatas → ungu muda
+            }
+            // kalau 0 booking → tetap putih
+        }
+
+        $html .= "<td style='{$style}'>{$currentDay}</td>";
 
         $currentDay++;
         $dayOfWeek++;
@@ -67,6 +88,14 @@ function generate_calendar($year, $month)
     }
 
     $html .= "</tr></tbody></table>";
+
+    // Legend warna
+    $html .= "<div class='mt-3'>
+                <span style='display:inline-block;width:20px;height:20px;background:#872366;margin-right:5px;'></span> Penuh &nbsp;&nbsp;
+                <span style='display:inline-block;width:20px;height:20px;background:#E498FF;margin-right:5px;'></span> Terbatas &nbsp;&nbsp;
+                <span style='display:inline-block;width:20px;height:20px;background:#fff;border:1px solid #ccc;margin-right:5px;'></span> Tersedia
+              </div>";
+
     $html .= "</div>"; // end calendar wrapper
     return $html;
 }

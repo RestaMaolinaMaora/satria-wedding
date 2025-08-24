@@ -36,7 +36,7 @@ class Laporan extends BaseController
     // ===== Export PDF =====
     public function exportPdf()
     {
-        $laporan = $this->laporanModel->findAll();
+        $laporan = $this->laporanModel->getLaporan();
 
         $html = view('admin/laporan/pdf', ['laporan' => $laporan]);
 
@@ -50,31 +50,31 @@ class Laporan extends BaseController
     // ===== Export Excel =====
     public function exportExcel()
     {
-        $laporan = $this->laporanModel->findAll();
+        $laporan = $this->laporanModel->getLaporan();
 
         $spreadsheet = new Spreadsheet();
         $sheet = $spreadsheet->getActiveSheet();
 
         // Header kolom
         $sheet->setCellValue('A1', 'No');
-        $sheet->setCellValue('B1', 'Nama Client');
-        $sheet->setCellValue('C1', 'Paket');
-        $sheet->setCellValue('D1', 'Tanggal');
+        $sheet->setCellValue('B1', 'Nama Klien');
+        $sheet->setCellValue('C1', 'Nama Paket');
+        $sheet->setCellValue('D1', 'Tanggal Acara');
         $sheet->setCellValue('E1', 'Waktu Mulai');
-        $sheet->setCellValue('F1', 'Waktu Akhir');
-        $sheet->setCellValue('G1', 'Status');
+        $sheet->setCellValue('F1', 'Waktu Selesai');
+        $sheet->setCellValue('G1', 'Status Acara');
 
         // Isi data
         $row = 2;
         $no = 1;
         foreach ($laporan as $data) {
             $sheet->setCellValue('A' . $row, $no++);
-            $sheet->setCellValue('B' . $row, $data['nama_client']);
-            $sheet->setCellValue('C' . $row, $data['paket']);
-            $sheet->setCellValue('D' . $row, $data['tanggal']);
+            $sheet->setCellValue('B' . $row, $data['nama_klien']);
+            $sheet->setCellValue('C' . $row, $data['nama_paket']);   // ← sesuai alias di model
+            $sheet->setCellValue('D' . $row, $data['tanggal_acara']);
             $sheet->setCellValue('E' . $row, $data['waktu_mulai']);
-            $sheet->setCellValue('F' . $row, $data['waktu_akhir']);
-            $sheet->setCellValue('G' . $row, $data['status']);
+            $sheet->setCellValue('F' . $row, $data['waktu_selesai']);
+            $sheet->setCellValue('G' . $row, $data['status_acara']);
             $row++;
         }
 

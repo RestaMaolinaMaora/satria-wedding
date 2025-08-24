@@ -57,3 +57,9 @@
             <option value="Selesai" <?= $jadwal['status_acara']=='Selesai' ? 'selected' : '' ?>>Selesai</option>
             <option value="Dibatalkan" <?= $jadwal['status_acara']=='Dibatalkan' ? 'selected' : '' ?>>Dibatalkan</option>
         </select>
+    </div>
+
+    <button type="submit" class="btn btn-primary">Update</button>
+</form>
+
+<?= $this->endSection() ?>

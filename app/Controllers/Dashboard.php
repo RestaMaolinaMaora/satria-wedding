@@ -37,9 +37,22 @@ class Dashboard extends BaseController
                                       ->limit(5)
                                       ->findAll();
 
-        // panggil helper & buat kalender
+        // ambil jumlah acara per tanggal di bulan ini
+        $jadwalPerTanggal = $jadwalModel->select('tanggal_acara, COUNT(*) as total')
+                                        ->where('YEAR(tanggal_acara)', $year)
+                                        ->where('MONTH(tanggal_acara)', $month)
+                                        ->groupBy('tanggal_acara')
+                                        ->findAll();
+
+        // ubah jadi array [ 'YYYY-MM-DD' => total ]
+        $statusTanggal = [];
+        foreach ($jadwalPerTanggal as $row) {
+            $statusTanggal[$row['tanggal_acara']] = (int)$row['total'];
+        }
+
+        // panggil helper & buat kalender dengan status
         helper('calendar');
-        $calendar = generate_calendar($year, $month);
+        $calendar = generate_calendar($year, $month, $statusTanggal);
 
         return view('admin/dashboard', [
             'title'          => 'Dashboard Admin',

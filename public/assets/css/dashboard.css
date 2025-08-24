@@ -183,18 +183,6 @@
   border-radius: 50%;
 }
 
-/* Warna sesuai status */
-.calendar-legend label.tersedia::before {
-  background-color: #FFFFFF; /* Putih */
-    border: 1px solid #000; /* Tambah border hitam */
-}
-.calendar-legend label.terbatas::before {
-  background-color: #E498FF; /* ungu */
-}
-.calendar-legend label.penuh::before {
-  background-color: #872366; /* ungu tua */
-}
-
 /* Highlight hari ini */
 .calendar-box td.table-primary {
   background: #86728E !important;

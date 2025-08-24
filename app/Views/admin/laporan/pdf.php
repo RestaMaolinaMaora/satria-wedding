@@ -16,11 +16,11 @@
         <tr>
             <td><?= $no++ ?></td>
             <td><?= $row['nama_klien'] ?></td>
-            <td><?= $row['paket'] ?></td>
-            <td><?= $row['tanggal'] ?></td>
+            <td><?= $row['nama_paket'] ?></td>
+            <td><?= $row['tanggal_acara'] ?></td>
             <td><?= $row['waktu_mulai'] ?></td>
-            <td><?= $row['waktu_akhir'] ?></td>
-            <td><?= $row['status'] ?></td>
+            <td><?= $row['waktu_selesai'] ?></td>
+            <td><?= $row['status_acara'] ?></td>
         </tr>
         <?php endforeach; ?>
     </tbody>
