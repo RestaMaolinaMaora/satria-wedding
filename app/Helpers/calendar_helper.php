@@ -89,13 +89,6 @@ function generate_calendar($year, $month, $statusTanggal = [])
 
     $html .= "</tr></tbody></table>";
 
-    // Legend warna
-    $html .= "<div class='mt-3'>
-                <span style='display:inline-block;width:20px;height:20px;background:#872366;margin-right:5px;'></span> Penuh &nbsp;&nbsp;
-                <span style='display:inline-block;width:20px;height:20px;background:#E498FF;margin-right:5px;'></span> Terbatas &nbsp;&nbsp;
-                <span style='display:inline-block;width:20px;height:20px;background:#fff;border:1px solid #ccc;margin-right:5px;'></span> Tersedia
-              </div>";
-
-    $html .= "</div>"; // end calendar wrapper
+    $html .= "</div>"; // tutup wrapper kalender
     return $html;
 }

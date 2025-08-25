@@ -5,70 +5,65 @@
 <?= $this->endSection() ?>
 
 <?= $this->section('content') ?>
-<div class="container-fluid">
-    <div class="d-flex justify-content-between align-items-center mb-3">
-        <h2 class="page-title">Kelola Data Klien</h2>
-        <a href="/admin/klien/create" class="btn btn-primary">
-            <i class="bi bi-plus-circle"></i> Tambah Data Klien
+
+<div class="container mt-4">
+    <!-- Judul -->
+    <h2>Kelola Data Klien</h2>
+
+    <!-- Baris pencarian + tombol tambah -->
+    <div class="d-flex justify-content-between align-items-center my-3">
+        <!-- Form Pencarian di kiri -->
+        <form method="get" class="d-flex" style="gap:10px; max-width:400px;">
+            <input type="text" name="keyword" class="form-control" placeholder="Cari klien..." value="<?= esc($keyword ?? '') ?>">
+            <button type="submit" class="btn btn-cari">Cari</button>
+        </form>
+
+        <!-- Tombol Tambah Data Klien di kanan -->
+        <a href="<?= base_url('admin/klien/create') ?>" class="btn btn-tambah">
+            <i class="fas fa-plus"></i> Tambah Data Klien
         </a>
     </div>
 
-    <!-- Form Pencarian -->
-    <form action="<?= base_url('admin/klien'); ?>" method="get" class="mb-3">
-        <div class="input-group">
-            <input type="text" name="keyword" class="form-control" 
-                   placeholder="Cari klien..." value="<?= esc($keyword ?? '') ?>">
-            <button class="btn btn-primary" type="submit">
-                <i class="bi bi-search"></i> Cari
-            </button>
-            <?php if (!empty($keyword)): ?>
-                <a href="<?= base_url('admin/klien'); ?>" class="btn btn-secondary">
-                    <i class="bi bi-x-circle"></i> Reset
-                </a>
-            <?php endif; ?>
-        </div>
-    </form>
-
-    <div class="table-responsive">
-        <table class="table table-bordered table-striped align-middle">
-            <thead>
-                <tr>
-                    <th>Id Klien</th>
-                    <th>Nama Klien</th>
-                    <th>Email</th>
-                    <th>No Telepon</th>
-                    <th>Alamat</th>
-                    <th width="150">Aksi</th>
-                </tr>
-            </thead>
-            <tbody>
-                <?php if (!empty($klien)): ?>
-                    <?php foreach ($klien as $k): ?>
+    <!-- Tabel Data Klien -->
+    <table class="table-klien">
+        <thead>
+            <tr>
+                <th>Id Klien</th>
+                <th>Nama Klien</th>
+                <th>Email</th>
+                <th>No Telepon</th>
+                <th>Alamat</th>
+                <th class="text-center">Aksi</th>
+            </tr>
+        </thead>
+        <tbody>
+            <?php if (!empty($klien)): ?>
+                <?php foreach($klien as $row): ?>
                     <tr>
-                        <td><?= esc($k['id_klien']) ?></td>
-                        <td><?= esc($k['nama_klien']) ?></td>
-                        <td><?= esc($k['email']) ?></td>
-                        <td><?= esc($k['no_telepon']) ?></td>
-                        <td><?= esc($k['alamat']) ?></td>
-                        <td class="text-center">
-                            <a href="/admin/klien/edit/<?= $k['id_klien'] ?>" class="btn btn-warning btn-sm">
-                                <i class="bi bi-pencil-square"></i>
+                        <td><?= $row['id_klien'] ?></td>
+                        <td><?= esc($row['nama_klien']) ?></td>
+                        <td><?= esc($row['email']) ?></td>
+                        <td><?= esc($row['no_telepon']) ?></td>
+                        <td><?= esc($row['alamat']) ?></td>
+                        <td class="text-center aksi">
+                            <a href="<?= base_url('admin/klien/edit/'.$row['id_klien']) ?>" class="btn btn-sm btn-edit me-1">
+                                <i class="fas fa-edit"></i> Edit
                             </a>
-                            <a href="/admin/klien/delete/<?= $k['id_klien'] ?>" 
-                               class="btn btn-danger btn-sm"
-                               onclick="return confirm('Yakin hapus data?')">
-                                <i class="bi bi-trash"></i>
-                            </a>
+                            <form action="<?= base_url('admin/klien/delete/'.$row['id_klien']) ?>" method="post" class="d-inline" onsubmit="return confirm('Yakin ingin menghapus data ini?')">
+                                <button type="submit" class="btn btn-sm btn-hapus">
+                                    <i class="fas fa-trash"></i> Hapus
+                                </button>
+                            </form>
                         </td>
                     </tr>
-                    <?php endforeach ?>
-                <?php else: ?>
-                    <tr>
-                        <td colspan="6" class="text-center">Belum ada data klien</td>
-                    </tr>
-                <?php endif ?>
-            </tbody>
-        </table>
-    </div>
+                <?php endforeach; ?>
+            <?php else: ?>
+                <tr>
+                    <td colspan="6" class="text-center">Belum ada data klien</td>
+                </tr>
+            <?php endif; ?>
+        </tbody>
+    </table>
 </div>
+
 <?= $this->endSection() ?>

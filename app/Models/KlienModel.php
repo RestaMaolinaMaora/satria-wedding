@@ -6,19 +6,23 @@ use CodeIgniter\Model;
 
 class KlienModel extends Model
 {
-    protected $table = 'klien'; // sesuaikan nama tabel di database
+    protected $table = 'klien';
     protected $primaryKey = 'id_klien';
     protected $allowedFields = ['nama_klien', 'email', 'no_telepon', 'alamat'];
 
-    // Tambahkan method pencarian
-    public function search($keyword)
+    // Method ambil semua klien sesuai keyword, selalu mengembalikan array
+    public function getKlien($keyword = null)
     {
-        return $this->table($this->table)
-                    ->like('nama_klien', $keyword)
+        $builder = $this->table($this->table);
+
+        if ($keyword) {
+            $builder->like('nama_klien', $keyword)
                     ->orLike('email', $keyword)
                     ->orLike('no_telepon', $keyword)
-                    ->orLike('alamat', $keyword)
-                    ->get()
-                    ->getResultArray();
+                    ->orLike('alamat', $keyword);
+        }
+
+        $result = $builder->get()->getResultArray();
+        return $result ?? [];
     }
 }

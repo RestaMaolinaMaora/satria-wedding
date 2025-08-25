@@ -1,37 +1,32 @@
 <?= $this->extend('admin/layout/main') ?>
+<?= $this->section('styles') ?>
+<link rel="stylesheet" href="<?= base_url('assets/css/klien.css') ?>">
+<?= $this->endSection() ?>
+
 <?= $this->section('content') ?>
-
 <div class="container mt-4">
-    <h3 class="mb-4"><?= $title ?></h3>
+    <!-- Judul -->
+    <div class="mb-2">
+        <h3>Kelola User</h3>
+    </div>
 
-    <!-- Form Pencarian -->
-    <form action="<?= site_url('admin/user') ?>" method="get" class="mb-3">
-        <div class="input-group">
-            <input type="text" 
-                   name="keyword" 
-                   class="form-control" 
-                   placeholder="Cari nama atau username..." 
-                   value="<?= esc($keyword) ?>">
-            <button class="btn btn-primary" type="submit">
+    <!-- Form pencarian & tombol tambah sejajar -->
+    <div class="d-flex justify-content-between align-items-center mb-3">
+        <form action="<?= site_url('admin/user') ?>" method="get" class="d-flex" style="gap:5px; max-width:400px;">
+            <input type="text" name="keyword" class="form-control" placeholder="Cari nama atau username..." value="<?= esc($keyword ?? '') ?>">
+            <button class="btn btn-cari d-flex align-items-center" type="submit" style="gap:5px;">
                 <i class="bi bi-search"></i> Cari
             </button>
-            <a href="<?= site_url('admin/user') ?>" class="btn btn-secondary">
-                <i class="bi bi-arrow-clockwise"></i> Reset
-            </a>
-        </div>
-    </form>
-
-    <!-- Tombol Tambah User -->
-    <div class="mb-3">
-        <a href="<?= site_url('admin/user/create') ?>" class="btn btn-success">
+        </form>
+        <a href="<?= site_url('admin/user/create') ?>" class="btn btn-tambah">
             <i class="bi bi-plus-circle"></i> Tambah User
         </a>
     </div>
 
     <!-- Tabel Data User -->
     <div class="table-responsive">
-        <table class="table table-bordered table-striped">
-            <thead class="table-dark">
+        <table class="table-klien">
+            <thead>
                 <tr>
                     <th width="50">#</th>
                     <th>Nama User</th>
@@ -46,16 +41,15 @@
                             <td><?= $no++ ?></td>
                             <td><?= esc($row['nama_user']) ?></td>
                             <td><?= esc($row['username']) ?></td>
-                            <td>
-                                <a href="<?= site_url('admin/user/edit/' . $row['id_user']) ?>" 
-                                   class="btn btn-warning btn-sm">
+                            <td class="text-center aksi d-flex justify-content-center gap-1">
+                                <a href="<?= site_url('admin/user/edit/' . $row['id_user']) ?>" class="btn btn-sm btn-edit">
                                     <i class="bi bi-pencil-square"></i> Edit
                                 </a>
-                                <a href="<?= site_url('admin/user/delete/' . $row['id_user']) ?>" 
-                                   class="btn btn-danger btn-sm"
-                                   onclick="return confirm('Yakin ingin menghapus user ini?')">
-                                    <i class="bi bi-trash"></i> Hapus
-                                </a>
+                                <form action="<?= site_url('admin/user/delete/' . $row['id_user']) ?>" method="post" onsubmit="return confirm('Yakin ingin menghapus user ini?')">
+                                    <button type="submit" class="btn btn-sm btn-hapus">
+                                        <i class="bi bi-trash"></i> Hapus
+                                    </button>
+                                </form>
                             </td>
                         </tr>
                     <?php endforeach; ?>
@@ -68,5 +62,4 @@
         </table>
     </div>
 </div>
-
 <?= $this->endSection() ?>

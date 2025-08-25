@@ -5,52 +5,74 @@
 
 <!-- Info Cards -->
 <div class="row">
+  <!-- Total Klien -->
   <div class="col-md-4">
     <div class="info-card">
-      <h6 class="title">Total Klien</h6>
       <div class="info-content">
         <i class="fas fa-users icon"></i>
-        <span class="value"><?= $totalKlien ?></span>
+        <div class="text">
+          <h6 class="label">Total Klien</h6>
+          <span class="value"><?= esc($totalKlien) ?></span>
+        </div>
       </div>
     </div>
   </div>
 
+  <!-- Acara Bulan Ini -->
   <div class="col-md-4">
     <div class="info-card">
-      <h6 class="title">Acara Bulan Ini</h6>
       <div class="info-content">
         <i class="fas fa-calendar-alt icon"></i>
-        <span class="value"><?= $acaraBulanIni ?></span>
+        <div class="text">
+          <h6 class="label">Acara Bulan Ini</h6>
+          <span class="value"><?= esc($acaraBulanIni) ?></span>
+        </div>
       </div>
     </div>
   </div>
 
+  <!-- Paket Terlaris -->
   <div class="col-md-4">
     <div class="info-card">
-      <h6 class="title">Paket Terlaris</h6>
       <div class="info-content">
         <i class="fas fa-star icon"></i>
-        <span class="value"><?= $paketTerlaris ?></span>
+        <div class="text">
+          <h6 class="label">Paket Terlaris</h6>
+          <span class="value"><?= esc($paketTerlaris) ?></span>
+        </div>
       </div>
     </div>
   </div>
 </div>
 
-<!-- Kalender + Jadwal dalam satu row -->
+<!-- Kalender & Jadwal -->
 <div class="row mt-4">
   <!-- Kalender Dinamis -->
   <div class="col-md-6 mb-4">
     <div class="calendar-box p-3">
       <?= $calendar ?>
-    </div> 
-</div>
+
+      <!-- Legend Kalender -->
+      <div class="calendar-legend mt-3">
+        <div class="legend-item">
+          <span class="legend-color legend-full"></span> Penuh
+        </div>
+        <div class="legend-item">
+          <span class="legend-color legend-limited"></span> Terbatas
+        </div>
+        <div class="legend-item">
+          <span class="legend-color legend-available"></span> Tersedia
+        </div>
+      </div>
+    </div>
+  </div>
 
   <!-- Jadwal Terdekat -->
   <div class="col-md-6 mb-4">
     <div class="schedule-box p-3">
       <h6>Jadwal Terdekat</h6>
-      <table class="table">
-        <thead>
+      <table class="table table-bordered align-middle">
+        <thead class="table-light">
           <tr>
             <th>Tanggal</th>
             <th>Waktu</th>
@@ -66,8 +88,7 @@
                 <td><?= date('d/m/Y', strtotime($row['tanggal_acara'])) ?></td>
                 <td>
                   <?= date('H:i', strtotime($row['waktu_mulai'])) ?>
-                  -
-                  <?= date('H:i', strtotime($row['waktu_selesai'])) ?>
+                  - <?= date('H:i', strtotime($row['waktu_selesai'])) ?>
                 </td>
                 <td><?= esc($row['nama_klien']) ?></td>
                 <td><?= esc($row['nama_paket']) ?></td>
@@ -77,7 +98,9 @@
                   <?php elseif ($row['status_acara'] === 'Dibatalkan'): ?>
                     <span class="badge bg-danger">Dibatalkan</span>
                   <?php else: ?>
-                    <span class="badge bg-warning"><?= esc($row['status_acara']) ?></span>
+                    <span class="badge bg-warning text-dark">
+                      <?= esc($row['status_acara']) ?>
+                    </span>
                   <?php endif; ?>
                 </td>
               </tr>

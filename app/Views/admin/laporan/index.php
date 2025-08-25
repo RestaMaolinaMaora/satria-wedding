@@ -1,4 +1,10 @@
 <?= $this->extend('admin/layout/main') ?>
+
+<!-- Tambahan CSS khusus laporan -->
+<?= $this->section('styles') ?>
+<link rel="stylesheet" href="<?= base_url('assets/css/laporan.css') ?>">
+<?= $this->endSection() ?>
+
 <?= $this->section('content') ?>
 
 <div class="container-fluid">
@@ -28,26 +34,27 @@
     </form>
 
     <!-- Info Card -->
-    <div class="row mb-4">
-        <div class="col-md-4">
-            <div class="card text-center p-3 bg-light">
-                <h5>Total Acara</h5>
-                <h3><?= $totalAcara ?></h3>
-            </div>
-        </div>
-        <div class="col-md-4">
-            <div class="card text-center p-3 bg-light">
-                <h5>Total Klien</h5>
-                <h3><?= $totalKlien ?></h3>
-            </div>
-        </div>
-        <div class="col-md-4">
-            <div class="card text-center p-3 bg-light">
-                <h5>Acara Selesai</h5>
-                <h3><?= round($persentaseSelesai, 1) ?>%</h3>
-            </div>
+    <div class="row mb-4 justify-content-center">
+    <div class="col-md-3">
+        <div class="card text-center p-3 bg-light">
+            <h5>Total Acara</h5>
+            <h3><?= $totalAcara ?></h3>
         </div>
     </div>
+    <div class="col-md-3">
+        <div class="card text-center p-3 bg-light">
+            <h5>Total Klien</h5>
+            <h3><?= $totalKlien ?></h3>
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div class="card text-center p-3 bg-light">
+            <h5>Acara Selesai</h5>
+            <h3><?= round($persentaseSelesai, 1) ?>%</h3>
+        </div>
+    </div>
+</div>
+
 
     <!-- Export -->
     <div class="mb-3">

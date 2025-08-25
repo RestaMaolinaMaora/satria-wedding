@@ -1,4 +1,9 @@
 <?= $this->extend('admin/layout/main') ?>
+
+<?= $this->section('styles') ?>
+<link rel="stylesheet" href="<?= base_url('assets/css/klien.css') ?>">
+<?= $this->endSection() ?>
+
 <?= $this->section('content') ?>
 
 <div class="container mt-4">
@@ -12,20 +17,22 @@
         <div class="alert alert-danger"><?= session()->getFlashdata('error') ?></div>
     <?php endif; ?>
 
-    <!-- Form pencarian -->
-    <form method="get" action="<?= base_url('admin/jadwal') ?>" class="mb-3 d-flex">
-        <input type="text" name="keyword" class="form-control me-2" 
-               placeholder="Cari klien, paket, atau lokasi..." value="<?= esc($keyword) ?>">
-        <button type="submit" class="btn btn-primary">Cari</button>
-    </form>
+    <!-- Baris pencarian + tombol tambah -->
+    <div class="d-flex justify-content-between align-items-center my-3">
+        <!-- Form pencarian di kiri -->
+        <form method="get" action="<?= base_url('admin/jadwal') ?>" class="d-flex" style="gap:10px; max-width:400px;">
+            <input type="text" name="keyword" class="form-control" placeholder="Cari klien, paket, atau lokasi..." value="<?= esc($keyword ?? '') ?>">
+            <button type="submit" class="btn btn-cari">Cari</button>
+        </form>
 
-    <!-- Tombol tambah jadwal -->
-    <a href="<?= base_url('admin/jadwal/create') ?>" class="btn btn-success mb-3">
-        + Tambah Jadwal
-    </a>
+        <!-- Tombol tambah jadwal di kanan -->
+        <a href="<?= base_url('admin/jadwal/create') ?>" class="btn btn-tambah">
+            <i class="fas fa-plus"></i> Tambah Jadwal
+        </a>
+    </div>
 
     <!-- Tabel jadwal -->
-    <table class="table table-bordered table-striped">
+    <table class="table-klien">
         <thead>
             <tr>
                 <th>No</th>
@@ -35,7 +42,7 @@
                 <th>Waktu</th>
                 <th>Lokasi</th>
                 <th>Status</th>
-                <th>Aksi</th>
+                <th class="text-center">Aksi</th>
             </tr>
         </thead>
         <tbody>
@@ -49,10 +56,15 @@
                         <td><?= esc($j['waktu_mulai']) ?> - <?= esc($j['waktu_selesai']) ?></td>
                         <td><?= esc($j['lokasi_acara']) ?></td>
                         <td><?= esc($j['status_acara']) ?></td>
-                        <td>
-                            <a href="<?= base_url('admin/jadwal/edit/'.$j['id_jadwal']) ?>" class="btn btn-warning btn-sm">Edit</a>
-                            <a href="<?= base_url('admin/jadwal/delete/'.$j['id_jadwal']) ?>" class="btn btn-danger btn-sm" 
-                               onclick="return confirm('Yakin hapus jadwal ini?')">Hapus</a>
+                        <td class="text-center aksi">
+                            <a href="<?= base_url('admin/jadwal/edit/'.$j['id_jadwal']) ?>" class="btn btn-sm btn-edit me-1">
+                                <i class="fas fa-edit"></i> Edit
+                            </a>
+                            <form action="<?= base_url('admin/jadwal/delete/'.$j['id_jadwal']) ?>" method="post" class="d-inline" onsubmit="return confirm('Yakin hapus jadwal ini?')">
+                                <button type="submit" class="btn btn-sm btn-hapus">
+                                    <i class="fas fa-trash"></i> Hapus
+                                </button>
+                            </form>
                         </td>
                     </tr>
                 <?php endforeach; ?>

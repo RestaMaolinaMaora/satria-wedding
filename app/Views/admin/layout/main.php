@@ -8,6 +8,9 @@
   <!-- CSS kustom -->
   <link href="<?= base_url('assets/css/dashboard.css') ?>" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+  <!-- Slot tambahan CSS halaman -->
+  <?= $this->renderSection('styles') ?>
 </head>
 <body>
   <div class="d-flex">

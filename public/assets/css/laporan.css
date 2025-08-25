@@ -1,0 +1,87 @@
+/* --- Filter --- */
+form .form-control, 
+form .form-select {
+    border: 2px solid #41244C;
+    border-radius: 8px;
+}
+
+form label {
+    font-weight: 600;
+    color: #41244C;
+}
+
+/* --- Info Card --- */
+.card.bg-light {
+    background-color: #86728E !important;
+    color: #fff !important;
+    border-radius: 12px;
+    box-shadow: 0px 4px 8px rgba(0,0,0,0.15);
+}
+
+.card.bg-light h5 {
+    font-size: 1rem;
+    font-weight: 600;
+    margin-bottom: 8px;
+    color: #fff;
+}
+
+.card.bg-light h3 {
+    font-size: 1.8rem;
+    font-weight: bold;
+    margin: 0;
+    color: #fff;
+}
+
+.info-card {
+    max-width: 200px;
+    margin: 0 auto;
+}
+
+/* --- Tombol Export --- */
+a.btn-danger {
+    background-color: #E498FF !important;
+    border: none;
+    color: #fff !important;
+    font-weight: 600;
+    border-radius: 8px;
+}
+
+a.btn-success {
+    background-color: #41244C !important;
+    border: none;
+    color: #fff !important;
+    font-weight: 600;
+    border-radius: 8px;
+}
+
+a.btn-danger:hover {
+    opacity: 0.9;
+}
+
+a.btn-success:hover {
+    opacity: 0.9;
+}
+
+/* --- Tabel --- */
+.table thead.table-dark th {
+    background-color: #41244C !important;
+    color: #fff !important;
+    text-align: center;
+}
+
+.table tbody td {
+    vertical-align: middle;
+}
+
+/* --- Tombol Filter --- */
+.btn-primary {
+    background-color: #41244C !important;
+    border: none !important;
+    font-weight: 600;
+    border-radius: 8px;
+    color: #fff !important;
+}
+
+.btn-primary:hover {
+    background-color: #2d1634 !important; /* versi lebih gelap */
+}

@@ -13,30 +13,29 @@ class Klien extends BaseController
         $this->klienModel = new KlienModel();
     }
 
+    // Halaman index dengan pencarian tanpa pagination
     public function index()
     {
-        $keyword = $this->request->getGet('keyword'); // ambil keyword dari query string
-
-        if ($keyword) {
-            $klien = $this->klienModel->search($keyword);
-        } else {
-            $klien = $this->klienModel->findAll();
-        }
+        $keyword = $this->request->getGet('keyword'); 
+        $klien   = $this->klienModel->getKlien($keyword);
 
         $data = [
-            'title' => 'Data Klien',
-            'klien' => $klien,
-            'keyword' => $keyword // supaya bisa ditampilkan di form pencarian
+            'title'   => 'Data Klien',
+            'klien'   => $klien,
+            'keyword' => $keyword
         ];
+
         return view('admin/klien/index', $data);
     }
 
+    // Form tambah klien
     public function create()
     {
         $data = ['title' => 'Tambah Klien'];
-        return view('admin/klien/tambah', $data);
+        return view('admin/klien/create', $data);
     }
 
+    // Simpan data klien baru
     public function store()
     {
         $this->klienModel->save([
@@ -49,15 +48,23 @@ class Klien extends BaseController
         return redirect()->to('admin/klien');
     }
 
+    // Form edit klien
     public function edit($id)
     {
+        $klien = $this->klienModel->find($id);
+        if (!$klien) {
+            return redirect()->to('admin/klien')->with('error', 'Data klien tidak ditemukan.');
+        }
+
         $data = [
             'title' => 'Edit Klien',
-            'klien' => $this->klienModel->find($id)
+            'klien' => $klien
         ];
+
         return view('admin/klien/edit', $data);
     }
 
+    // Update data klien
     public function update($id)
     {
         $this->klienModel->update($id, [
@@ -70,6 +77,7 @@ class Klien extends BaseController
         return redirect()->to('admin/klien');
     }
 
+    // Hapus data klien
     public function delete($id)
     {
         $this->klienModel->delete($id);
