@@ -55,6 +55,12 @@
   background-color: #D9D9D9;
   padding: 10px 20px;
   border-bottom: 1px solid #ccc;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 1000; /* supaya nggak ketutup elemen lain */
+  margin-left: 250px; 
+  width: calc(100% - 250px);
 }
 
 /* ================= Main Content ================= */
